@@ -1,0 +1,146 @@
+<apex:page
+    applyHtmlTag="false"
+    applyBodyTag="false"
+    docType="html-5.0"
+    showHeader="false"
+    standardStylesheets="false"
+    controller="GranteeMapController"
+>
+    <apex:includeLightning />
+    <html
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        lang="en"
+    >
+        <head>
+            <title>Grantee Heatmap</title>
+            <meta name="viewport" content="initial-scale=1.0" />
+            <meta charset="utf-8" />
+            <style>
+                html,
+                body {
+                    margin: 0;
+                    padding: 0;
+                }
+                #map {
+                    height: 500px;
+                }
+            </style>
+            <apex:slds />
+            <apex:form id="form">
+                <apex:actionFunction
+                    name="setFilteredGrantYears"
+                    action="{!setFilteredGrantYears}"
+                    reRender="form"
+                    status="myStatus"
+                >
+                    <apex:param name="years" value="" />
+                </apex:actionFunction>
+                <apex:actionFunction
+                    name="setFilteredFocusAreas"
+                    action="{!setFilteredFocusAreas}"
+                    reRender="form"
+                    status="myStatus"
+                >
+                    <apex:param name="focuses" value="" />
+                </apex:actionFunction>
+                <apex:actionFunction
+                    name="setFilteredInvestigators"
+                    action="{!setFilteredInvestigators}"
+                    reRender="form"
+                    status="myStatus"
+                >
+                    <apex:param name="investigators" value="" />
+                </apex:actionFunction>
+
+                <body id="mapBody">
+                    <div class="slds-scope">
+                        <div id="map"></div>
+                        <script
+                            type="text/javascript"
+                            src="https://www.gstatic.com/charts/loader.js"
+                        ></script>
+                        <script>
+                            //Load google charts
+                            google.charts.load('current', {'packages':['geochart'],});
+                            google.charts.setOnLoadCallback(drawRegionsMap);
+
+                            let map, heatmap;
+                            let accountList = [];
+                            let countryMap = [];
+                            let countryEntry;
+
+                            countryMap.push(['Country','Grantee Funding'])
+                            <apex:repeat value="{!granteesByCountry}" var="country">
+                            	countryEntry = [];
+                            	countryEntry.push('{!country}');
+                            	countryEntry.push(parseInt('{!granteesByCountry[country]}'));
+                            	countryMap.push(countryEntry);
+                            </apex:repeat>
+
+                            function drawRegionsMap() {
+                            	var data = google.visualization.arrayToDataTable(countryMap);
+
+                            	var options = {legend:{numberFormat:'$#,##0', enableRegionInteractivity:true}};
+                            	var formatter = new google.visualization.NumberFormat({prefix: '$'}); //Apply currency formatting to tooltip
+                            	formatter.format(data, 1);
+
+                            	var chart = new google.visualization.GeoChart(document.getElementById('map'));
+                            	chart.draw(data, options);
+
+                            	// Add onclick listener for regions
+                            	google.visualization.events.addListener(chart, 'regionClick', regionClickHandler);
+
+                            	function regionClickHandler(e) {
+                            		var payload = e.region;
+                            		var message = {
+                            			name:"globalMapRegionClick",
+                            			payload:payload
+                            		};
+                            		let origin = "{!lexOrigin}";
+                            		parent.postMessage(message,origin);
+                            	}
+                            }
+                        </script>
+                        <script type="text/javascript">
+                            //set event listener
+                            window.addEventListener("message", sendPayload);
+
+                            function sendPayload(event) {
+                                if (event.origin !== "{!lexOrigin}") {
+                                    //Not the expected origin
+                                    return;
+                                } else {
+                                    // send the desired filter to the controller
+                                    if (event.data.name === "grantYears") {
+                                        setFilteredGrantYears(
+                                            JSON.stringify(event.data.payload)
+                                        );
+                                    } else if (
+                                        event.data.name === "focusAreas"
+                                    ) {
+                                        setFilteredFocusAreas(
+                                            JSON.stringify(event.data.payload)
+                                        );
+                                    } else if (
+                                        event.data.name === "investigators"
+                                    ) {
+                                        setFilteredInvestigators(
+                                            JSON.stringify(event.data.payload)
+                                        );
+                                    }
+                                }
+
+                                // Remove Event listener
+                                window.removeEventListener(
+                                    "message",
+                                    sendPayload
+                                );
+                            }
+                        </script>
+                    </div>
+                </body>
+            </apex:form>
+        </head>
+    </html>
+</apex:page>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Default_Focus_Areas__c</fullName>
+    <description>For users who interact with the Calibration Curve tool, these focus areas will be loaded by default.</description>
+    <inlineHelpText>For users who interact with the Calibration Curve tool, these focus areas will be loaded by default.</inlineHelpText>
+    <label>Default Focus Areas</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>Focus_Area</valueSetName>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

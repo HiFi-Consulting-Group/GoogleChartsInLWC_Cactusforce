@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Native_Plants_Preservation</fullName>
+        <default>false</default>
+        <label>Native Plants Preservation</label>
+    </customValue>
+    <customValue>
+        <fullName>Climate_Change</fullName>
+        <default>false</default>
+        <label>Climate Change</label>
+    </customValue>
+    <customValue>
+        <fullName>Capacity_Building</fullName>
+        <default>false</default>
+        <label>Capacity Building</label>
+    </customValue>
+    <customValue>
+        <fullName>Political_Stability</fullName>
+        <default>false</default>
+        <label>Political Stability</label>
+    </customValue>
+    <customValue>
+        <fullName>Women&apos;s Health</fullName>
+        <default>false</default>
+        <label>Women&apos;s Health</label>
+    </customValue>
+    <customValue>
+        <fullName>Elder Care</fullName>
+        <default>false</default>
+        <label>Elder Care</label>
+    </customValue>
+    <customValue>
+        <fullName>Indigenous Community Building</fullName>
+        <default>false</default>
+        <label>Indigenous Community Building</label>
+    </customValue>
+    <customValue>
+        <fullName>Bodily Autonomy</fullName>
+        <default>false</default>
+        <label>Bodily Autonomy</label>
+    </customValue>
+    <customValue>
+        <fullName>Voting Rights</fullName>
+        <default>false</default>
+        <label>Voting Rights</label>
+    </customValue>
+    <customValue>
+        <fullName>Renewable Energy</fullName>
+        <default>false</default>
+        <label>Renewable Energy</label>
+    </customValue>
+    <customValue>
+        <fullName>Pedestrian Safety</fullName>
+        <default>false</default>
+        <label>Pedestrian Safety</label>
+    </customValue>
+    <customValue>
+        <fullName>Sustainable Building Codes</fullName>
+        <default>false</default>
+        <label>Sustainable Building Codes</label>
+    </customValue>
+    <customValue>
+        <fullName>Other</fullName>
+        <default>false</default>
+        <label>Other</label>
+    </customValue>
+    <customValue>
+        <fullName>Alzheimer&apos;s (Good Ventures)</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Alzheimer&apos;s (Good Ventures)</label>
+    </customValue>
+    <masterLabel>Focus Area</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

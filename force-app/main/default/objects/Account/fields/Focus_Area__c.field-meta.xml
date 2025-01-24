@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Focus_Area__c</fullName>
+    <description>The main focus area alignment for this organization.</description>
+    <inlineHelpText>The main focus area alignment for this organization.</inlineHelpText>
+    <label>Focus Area</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>Focus_Area</valueSetName>
+    </valueSet>
+</CustomField>

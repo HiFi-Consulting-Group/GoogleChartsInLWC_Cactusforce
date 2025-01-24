@@ -1,0 +1,126 @@
+<template>
+    <lightning-accordion
+        allow-multiple-sections-open
+        active-section-name={activeSections}
+    >
+        <lightning-accordion-section name="Filters" label="Map Filters">
+            <div class="slds-grid">
+                <div class="slds-col">
+                    <lightning-dual-listbox
+                        name="Grant Years"
+                        label="Select Relevant Grant Years"
+                        source-label="Available"
+                        selected-label="Selected"
+                        field-level-help="Filter by Grant Years"
+                        value={selectedGrantYears}
+                        options={availableGrantYears}
+                        onchange={grantYearsChanged}
+                    >
+                    </lightning-dual-listbox>
+                </div>
+                <div class="slds-col">
+                    <lightning-dual-listbox
+                        name="Focus Areas"
+                        label="Select Relevant Focus Areas"
+                        source-label="Available"
+                        selected-label="Selected"
+                        field-level-help="Filter by Focus Areas"
+                        options={availableFocusAreas}
+                        value={selectedFocusAreas}
+                        onchange={focusAreasChanged}
+                    >
+                    </lightning-dual-listbox>
+                </div>
+                <div class="slds-col">
+                    <lightning-dual-listbox
+                        name="Investigators"
+                        label="Select Relevant Investigators"
+                        source-label="Available"
+                        selected-label="Selected"
+                        field-level-help="Filter by Investigators"
+                        options={availableInvestigators}
+                        value={selectedInvestigators}
+                        onchange={investigatorsChanged}
+                    >
+                    </lightning-dual-listbox>
+                </div>
+            </div>
+        </lightning-accordion-section>
+        <lightning-accordion-section
+            name="GlobalMap"
+            label="Global Grantee Map"
+        >
+            <div lwc:if={isLoading} class="slds-is-relative">
+                <lightning-spinner alternative-text="Loading...">
+                </lightning-spinner>
+            </div>
+            <iframe
+                data-id="global-map-iframe"
+                scrolling="false"
+                class="op-vf-iframe"
+                id="vfIframeGlobalMap"
+                src="/apex/GranteeHeatmap"
+            >
+            </iframe>
+        </lightning-accordion-section>
+        <lightning-accordion-section
+            name="GlobalMapData"
+            label="Global Map Data"
+        >
+            <div
+                class="data-table-frame slds-scrollable"
+                lwc:if={filteredGlobalMapOpps}
+            >
+                <lightning-datatable
+                    data={filteredGlobalMapOpps}
+                    columns={globalMapColumns}
+                    key-field="Id"
+                    sorted-by={globalSortedBy}
+                    sorted-direction={globalSortedDirection}
+                    onsort={handleGlobalSort}
+                    hide-checkbox-column="true"
+                >
+                </lightning-datatable>
+            </div>
+            <div lwc:else>
+                <p><i>Click on a map region for detailed data</i></p>
+            </div>
+        </lightning-accordion-section>
+        <div data-id="USSection" class="hidden-elements">
+            <lightning-accordion-section name="USMap" label="US Grantee Map">
+                <div lwc:if={isLoading} class="slds-is-relative">
+                    <lightning-spinner alternative-text="Loading...">
+                    </lightning-spinner>
+                </div>
+                <iframe
+                    data-id="us-map-iframe"
+                    scrolling="false"
+                    class="op-vf-iframe"
+                    id="vfIframeUSMap"
+                    src="/apex/USGranteeHeatmap"
+                >
+                </iframe>
+            </lightning-accordion-section>
+            <lightning-accordion-section name="USMapData" label="US Map Data">
+                <div
+                    class="data-table-frame slds-scrollable"
+                    lwc:if={filteredUsMapOpps}
+                >
+                    <lightning-datatable
+                        data={filteredUsMapOpps}
+                        columns={usMapColumns}
+                        key-field="Id"
+                        sorted-by={usSortedBy}
+                        sorted-direction={usSortedDirection}
+                        onsort={handleUSSort}
+                        hide-checkbox-column="true"
+                    >
+                    </lightning-datatable>
+                </div>
+                <div lwc:else>
+                    <p><i>Click on a State for detailed data</i></p>
+                </div>
+            </lightning-accordion-section>
+        </div>
+    </lightning-accordion>
+</template>

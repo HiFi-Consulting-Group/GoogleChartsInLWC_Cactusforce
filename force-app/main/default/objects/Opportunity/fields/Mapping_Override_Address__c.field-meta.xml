@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Mapping_Override_Address__c</fullName>
+    <description>For visualizing grant locations on a map, if the Account Billing Address should not be used, specify the information to be mapper here.  You may enter a partial address (i.e., only country, or only city) if that&apos;s all you know.</description>
+    <inlineHelpText>For visualizing grant locations on a map, if the Account Billing Address should not be used, specify the information to be mapper here.  You may enter a partial address (i.e., only country, or only city) if that&apos;s all you know.</inlineHelpText>
+    <label>Mapping Override Address</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Address</type>
+</CustomField>

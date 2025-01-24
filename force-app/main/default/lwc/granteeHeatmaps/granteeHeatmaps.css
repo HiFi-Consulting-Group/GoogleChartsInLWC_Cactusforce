@@ -1,0 +1,13 @@
+.op-vf-iframe {
+    height: 100%;
+    border-color: transparent;
+    min-height: 510px;
+}
+
+.data-table-frame {
+    max-height: 300px;
+}
+
+.hidden-elements {
+    display: none;
+}
